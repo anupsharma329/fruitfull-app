@@ -2,6 +2,12 @@
 
 A simple fullstack application built with React, Node.js, Express, PostgreSQL, and Docker for managing fruit inventory.
 
+### Frontend:
+<img width="1469" height="831" alt="Screenshot 2025-09-01 at 12 10 26 AM" src="https://github.com/user-attachments/assets/8e1c4d76-c657-42de-8c3d-3ff324870255" />
+
+### Prometheus dasboard:
+<img width="1467" height="832" alt="Screenshot 2025-09-01 at 12 10 12 AM" src="https://github.com/user-attachments/assets/ee577ec5-134f-428e-898e-0702444fede7" />
+
 ## 🏗️ Architecture
 
 - **Frontend**: React with Vite, modern UI with responsive design
@@ -260,14 +266,6 @@ docker system prune -a
 - ✅ Docker containerization
 - ✅ Health check endpoint
 - ✅ CORS enabled for frontend-backend communication
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
 
 ## 📄 License
 
