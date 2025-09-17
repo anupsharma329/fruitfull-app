@@ -8,7 +8,7 @@ on:
 
 jobs:
   build-and-scan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     services:
       sonarqube:
         image: sonarqube:community
