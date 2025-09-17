@@ -64,8 +64,8 @@ jobs:
             -Dsonar.sources=. \
             -Dsonar.host.url=https://6f86b207f300.ngrok-free.app \
             -Dsonar.token=${{ secrets.SONAR_ADMIN_TOKEN }} \
-            -Dsonar.qualitygate.wait=true \
-            -Dsonar.scm.disabled=true
+            # -Dsonar.qualitygate.wait=true \
+            # -Dsonar.scm.disabled=true
 
 
       - name: SonarQube Scan (Frontend)
