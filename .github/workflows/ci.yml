@@ -59,7 +59,7 @@ jobs:
         run: |
           cd backend
           npx sonar-scanner \
-            -Dsonar.projectKey=backend \
+            -Dsonar.projectKey=fruitful-app \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://6f86b207f300.ngrok-free.app \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
@@ -73,7 +73,7 @@ jobs:
         run: |
           cd frontend
           npx sonar-scanner \
-            -Dsonar.projectKey=frontend \
+            -Dsonar.projectKey=fruitful-app \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://6f86b207f300.ngrok-free.app \
             -Dsonar.token=${{ secrets.SONAR_TOKEN }}
