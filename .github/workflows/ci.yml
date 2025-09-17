@@ -89,21 +89,7 @@ jobs:
 
 
 
-      - name: Trivy Scan Backend (Docker Hub)
-        uses: aquasecurity/trivy-action@v0.19.0
-        with:
-          image-ref: anupsharma329/backend:g1.2
-          format: table
-          exit-code: 0
-          ignore-unfixed: true
 
-      - name: Trivy Scan Frontend (Docker Hub)
-        uses: aquasecurity/trivy-action@v0.19.0
-        with:
-          image-ref: anupsharma329/frontend:g1.2
-          format: table
-          exit-code: 0
-          ignore-unfixed: true
 
       - name: Deploy to Kubernetes
         run: |
