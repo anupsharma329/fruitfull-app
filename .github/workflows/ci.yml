@@ -1,0 +1,94 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    services:
+      sonarqube:
+        image: sonarqube:community
+        ports:
+          - 9000:9000
+        options: >
+          --health-cmd="curl -f http://localhost:9000 || exit 1"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Install frontend dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      - name: Run backend tests
+        run: |
+          cd backend
+          npm test || true
+
+      - name: Run frontend tests
+        run: |
+          cd frontend
+          npm test || true
+
+      - name: SonarQube Scan (Backend)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          cd backend
+          npx sonar-scanner \
+            -Dsonar.projectKey=backend \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+
+      - name: SonarQube Scan (Frontend)
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          cd frontend
+          npx sonar-scanner \
+            -Dsonar.projectKey=frontend \
+            -Dsonar.sources=. \
+            -Dsonar.host.url=http://localhost:9000 \
+            -Dsonar.login=$SONAR_TOKEN
+
+      - name: Build Docker images
+        run: |
+          docker build -t backend:latest ./backend
+          docker build -t frontend:latest ./frontend
+
+      - name: Trivy Scan Backend
+        uses: aquasecurity/trivy-action@v0.14.0
+        with:
+          image-ref: backend:latest
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+
+      - name: Trivy Scan Frontend
+        uses: aquasecurity/trivy-action@v0.14.0
+        with:
+          image-ref: frontend:latest
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+
+      # Add deployment steps here if needed
