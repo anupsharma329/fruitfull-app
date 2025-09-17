@@ -52,7 +52,7 @@ jobs:
             -Dsonar.projectKey=backend \
             -Dsonar.sources=. \
             -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.login=sqp_1683e53073fc7d1631f0f9f50a8190b1d558ba2f
+            -Dsonar.login=81042c2f63c3d28a8b92ec30ffb2cacb508cc334
 
 
 
@@ -65,7 +65,7 @@ jobs:
             -Dsonar.projectKey=frontend \
             -Dsonar.sources=. \
             -Dsonar.host.url=http://localhost:9000 \
-            -Dsonar.login=sqp_1683e53073fc7d1631f0f9f50a8190b1d558ba2f
+            -Dsonar.login=81042c2f63c3d28a8b92ec30ffb2cacb508cc334
 
 
 
