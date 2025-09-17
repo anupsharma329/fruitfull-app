@@ -72,23 +72,47 @@ jobs:
 
       - name: Build Docker images
         run: |
-          docker build -t backend:latest ./backend
-          docker build -t frontend:latest ./frontend
+          docker build -t anupsharma329/backend:g1.2 ./backend
+          docker build -t anupsharma329/frontend:g1.2 ./frontend
 
-      - name: Trivy Scan Backend
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Push backend image
+        run: docker push anupsharma329/backend:g1.2
+
+      - name: Push frontend image
+        run: docker push anupsharma329/frontend:g1.2
+
+
+
+      - name: Trivy Scan Backend (Docker Hub)
         uses: aquasecurity/trivy-action@v0.14.0
         with:
-          image-ref: backend:latest
+          image-ref: anupsharma329/backend:g1.2
           format: table
           exit-code: 0
           ignore-unfixed: true
 
-      - name: Trivy Scan Frontend
+      - name: Trivy Scan Frontend (Docker Hub)
         uses: aquasecurity/trivy-action@v0.14.0
         with:
-          image-ref: frontend:latest
+          image-ref: anupsharma329/frontend:g1.2
           format: table
           exit-code: 0
           ignore-unfixed: true
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8/namespace.yml
+          kubectl apply -f k8/backend-deployment.yml
+          kubectl apply -f k8/frontend-deployment.yml
+          kubectl apply -f k8/grafana-deployment.yml
+          kubectl apply -f k8/prometheus-deployment.yml
+        env:
+          KUBECONFIG: ${{ secrets.KUBECONFIG }}
 
       # Add deployment steps here if needed

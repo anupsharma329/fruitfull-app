@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: anupsharma329/frontend:g1.1
+        image: anupsharma329/frontend:g1.2
         ports:
         - containerPort: 3000
 
