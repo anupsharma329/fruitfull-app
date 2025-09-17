@@ -55,28 +55,30 @@ jobs:
 
       - name: SonarQube Scan (Backend)
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_ADMIN_TOKEN }}
         run: |
           cd backend
           npx sonar-scanner \
             -Dsonar.projectKey=fruitful-app \
+            -Dsonar.projectName="fruitfull-app" \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://6f86b207f300.ngrok-free.app \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.token=${{ secrets.SONAR_ADMIN_TOKEN }} \
             -Dsonar.qualitygate.wait=true \
             -Dsonar.scm.disabled=true
 
 
       - name: SonarQube Scan (Frontend)
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_ADMIN_TOKEN }}
         run: |
           cd frontend
           npx sonar-scanner \
             -Dsonar.projectKey=fruitful-app \
+            -Dsonar.projectName="fruitfull-app" \
             -Dsonar.sources=. \
             -Dsonar.host.url=https://6f86b207f300.ngrok-free.app \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${{ secrets.SONAR_ADMIN_TOKEN }}
 
 
 
